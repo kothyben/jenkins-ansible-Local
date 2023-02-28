@@ -1,0 +1,9 @@
+[test]
+#formation ansible_connection=ssh ansible_sudo_pass=kiko2019  ansible_user=formation ansible_host=192.168.1.4
+
+[projet]
+#Node_projet_Ansible  ansible_connection=ssh ansible_sudo_pass=ansible   ansible_user=ansible   ansible_host=192.168.1.51
+#root_local           ansible_connection=local ansible_user=root
+akoki_local        ansible_connection=local   ansible_user=akoki 
+
+
