@@ -1,0 +1,56 @@
+---
+- name: "Create groups and users"
+  become: yes
+  gather_facts: no
+  hosts:
+    - projet
+    - test
+
+  vars_files:
+    - utilisateurs.yaml 
+    - password.yaml
+    
+
+  tasks:
+      #Create groupe
+    - name: "create group dev"
+      group:
+        name: dev
+        state: present
+      when: ("projet" in group_names)
+
+    - name: "create group test"
+      group:
+        name: test
+        state: present
+      when: ("test" in group_names)
+
+      #- name: "delete users"
+      #user:
+      # name: "{{ item.Nom }}"
+      # state: absent
+      #  remove: yes
+      #loop: "{{ users }}"
+
+      #create users and pripary and secondary groups
+    - name: "create users"
+      user:
+        name: "{{ item.Nom }}"
+        state: present
+        group: "dev"
+        password: "{{ mdp_dev | password_hash('sha512') }}"
+      when:  ("projet" in group_names) and (item.Type == "dev")
+      loop: "{{ users }}"
+
+    - name: "create users and secondary groups"
+      user:
+        name: "{{ item.Nom }}"
+        state: present
+        groups: "test"
+        append: yes
+        password: "{{ mdp_test | password_hash('sha512') }}"
+      when: ("test" in group_names) and (item.Type == "test")
+      loop: "{{ users }}"
+
+
+

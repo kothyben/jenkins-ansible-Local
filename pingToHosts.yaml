@@ -1,0 +1,11 @@
+---
+- name: "check connection with hosts machines"
+  become: false
+  gather_facts: yes
+  hosts:
+    - projet
+      #- test
+
+  tasks:
+    - name: "Ping machines"
+      action: ping

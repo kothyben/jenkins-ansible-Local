@@ -1,0 +1,16 @@
+---
+- name: "Planifier la Mise a jour des paquets sur les machins du groupe test"
+  hosts: test
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - name: "plan task for user formation every 11 oclock"
+      cron:
+        name: "update paquets"
+        user: "formation"
+        hour: "11"
+        job: "sudo apt update"
+
+
+    

@@ -1,0 +1,61 @@
+---
+- name: "Partitions et Creation volumes logiques"
+  hosts:
+    - projet
+  become: yes
+  gather_facts: no
+  ignore_errors: yes
+
+  tasks:
+    - name: "Create 1 partition of 100Mo"
+      parted: 
+        device: /dev/sdc
+        number: 1
+        state: present
+        part_end: 100MiB
+        
+
+    - name: "Create 2nd partiton of 100Mo"
+      parted:
+        device: /dev/sdc
+        number: 2
+        state: present
+        part_end: 200MiB
+        part_start: 100MiB
+
+    - name: "Create volum group"
+      lvg:
+        vg: vgsociete
+        pvs: /dev/sdc1,/dev/sdc2
+        pesize: "8"
+
+    - name: "create logical volume"
+      lvol:
+        vg: vgsociete
+        lv: lv_ste
+        size: 120M
+
+    - name: "Formatage du volume logique"
+      filesystem:
+        fstype: ext4
+        force: no
+        dev: /dev/vgsociete/lv_ste
+
+    - name: "create point de montage"
+      file:
+        path: /mnt/logik2/
+        state: directory
+        mode: 0777
+
+    - name: "montage du volume logique"
+      mount:
+        path: /mnt/logik2/
+        src: /dev/vgsociete/lv_ste
+        fstype: ext4
+        state: present
+  
+    - command: "mount -a"
+
+
+
+

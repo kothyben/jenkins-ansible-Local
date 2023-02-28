@@ -1,0 +1,60 @@
+---
+- name: "Installation des paquets"
+  hosts:
+    - projet
+    - test
+  become: yes
+  gather_facts: yes
+
+  tasks:
+    - name: "Install httpd on projet group"
+      yum:
+        name: httpd
+        state: latest
+      when: ("projet" in group_names)
+
+    - name: "changement de port de lecture"
+      lineinfile:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: 'Listen 80'
+        line: 'Listen 8080'
+      when: ("projet" in group_names)
+
+    - name: "Install apache2  on test group"
+      apt:
+        name: apache2
+        state: latest
+      when: ("test" in group_names)
+
+    - name: "changement de port de lecture"
+      lineinfile:
+        path: /etc/apache2/ports.conf
+        regexp: 'Listen 80'
+        line: 'Listen 8080'
+      when: ("test" in group_names)
+
+
+    - name: "Copy file pageaccueil.j2 into index.html of nodes"
+      template:
+        src: ./pageaccueil.j2
+        dest: /var/www/html/index.html
+      notify: homepage
+
+  handlers:
+    - name: homepage
+      service:
+        name: httpd
+        state: restarted
+        enabled: true
+      when: ("projet" in group_names)
+
+    - name: homepage
+      service:
+        name: apache2
+        state: restarted
+        enabled: true
+      when: ("test" in group_names)
+
+   
+
+
