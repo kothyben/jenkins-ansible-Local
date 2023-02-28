@@ -4,6 +4,6 @@
 [projet]
 #Node_projet_Ansible  ansible_connection=ssh ansible_sudo_pass=ansible   ansible_user=ansible   ansible_host=192.168.1.51
 #root_local           ansible_connection=local ansible_user=root
-akoki_local        ansible_connection=ssh   ansible_user=akoki ansible_host=172.26.103.215
+akoki_local        ansible_connection=local   ansible_user=akoki 
 
 
