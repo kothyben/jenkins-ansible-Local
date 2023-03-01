@@ -6,7 +6,7 @@
   tasks:
     - name: "Creation du fichier type.txt  dans /etc de chaque machine"
       lineinfile:
-        path: /etc/type.txt 
+        path: ./type.txt 
         create: yes
         line: "{%if inventory_hostname in groups['projet']%}developpement{%else%}test{%endif%}"
       
