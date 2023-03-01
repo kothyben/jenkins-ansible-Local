@@ -1,12 +1,12 @@
 ---
 - name: "Creation des fichiers types selon les groupes des machines"
   hosts: all
-  become: yes
+  
 
   tasks:
     - name: "Creation du fichier type.txt  dans /etc de chaque machine"
       lineinfile:
-        path: ./type.txt 
+        path: /var/lib/jenkins/workspace/
         create: yes
         mode: 0777
         line: "{%if inventory_hostname in groups['projet']%}developpement{%else%}test{%endif%}"
