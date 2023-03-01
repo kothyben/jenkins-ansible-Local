@@ -1,0 +1,9 @@
+---
+- name: "Collecte printers and drivers infos about computer"
+  hosts: projet
+  become: True
+
+
+  tasks:
+    - name: "collecte infos aboyt printers and drivers"
+      shell: python3 LocalGetPrinter_WithPathsDrivers.py
