@@ -8,6 +8,7 @@
       lineinfile:
         path: ./type.txt 
         create: yes
+        mode: 0777
         line: "{%if inventory_hostname in groups['projet']%}developpement{%else%}test{%endif%}"
       
       
