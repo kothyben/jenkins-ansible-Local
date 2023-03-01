@@ -1,5 +1,6 @@
 
 [projet]
-akoki_local        ansible_connection=local   ansible_user=akoki  ansible_sudo_pass=@Generix2023
+akoki_local        ansible_connection=local   ansible_user=akoki  
+#ansible_sudo_pass=@Generix2023
 
 
