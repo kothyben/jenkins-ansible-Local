@@ -3,7 +3,7 @@
 akoki_local        ansible_connection=local   ansible_user=akoki  ansible_sudo_pass=@Generix2023
 
 [test_nodes_centos]
-nodeCentos         ansible_connection=local   ansible_user=akoki.centOS  ansible_sudo_pass=@Kothyben2019 ansible_host=172.29.67.204
+#nodeCentos         ansible_connection=local   ansible_user=akoki.centOS  ansible_sudo_pass=@Kothyben2019 ansible_host=172.29.67.204
 
 
 
