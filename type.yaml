@@ -13,13 +13,13 @@
         line: "{%if inventory_hostname in groups['projet']%}developpement{%else%}test{%endif%}"
       when: ("projet" in group_names)
 
-    - name: "Create file on centos Nodes"
-      lineinfile:
-        path: /home/akoki.centOS/files_created_from_jenkins/type_centos.txt
-        create: yes
-        mode: 0777
-        line: "Ce fichier est crée depuis le lancement du job avec jenkins en local"
-      when: ("test_nodes_centos" in group_names)
+        #    - name: "Create file on centos Nodes"
+        #lineinfile:
+        #path: /home/akoki.centOS/files_created_from_jenkins/type_centos.txt
+        #create: yes
+        #mode: 0777
+        #line: "Ce fichier est crée depuis le lancement du job avec jenkins en local"
+        #when: ("test_nodes_centos" in group_names)
 
 
       
